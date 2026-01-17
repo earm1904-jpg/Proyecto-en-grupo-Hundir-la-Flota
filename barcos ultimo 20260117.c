@@ -21,98 +21,131 @@ int disparo_maquina_aleatorio(int casillas, int player_board[casillas][casillas]
 
 void marcar_como_hundido(int f, int c, int casillas, int board[casillas][casillas]);
 int contar_partes_vivas(int f, int c, int casillas, int board[casillas][casillas], int visitado[casillas][casillas]);
+//menu y puntuaciones
+void mostrar_puntuaciones();
+void guardar_puntuacion(int disparos, int gano);
+
+typedef struct {
+    char nombre[50];
+    char fecha[20];
+    int disparos;
+    int gano; // 1 si ganó, 0 si no
+} Registro;
+
+
+
 // --------------------------------------------------
 // MAIN
 // --------------------------------------------------
-int main(void)
-{
-    unsigned seed = (unsigned)(time(NULL) * 100000);
-    srand(seed);
-
-    int casillas;
-    printf("¡Bienvenido a Barcos! ¿Con cuántas casillas quieres jugar? (1-25)");
-    while (1) {
-        if (scanf("%d", &casillas) != 1) { while(getchar() != '\n'); printf("Introduce un número: "); continue; }
-        if (casillas >= 1 && casillas <= 25) break;
-        printf("Introduce un número entre 1 y 25:");
-    }
-
-    int player_board[casillas][casillas];     // 0 = agua, 1 = barco
-    int comp_board[casillas][casillas];       // tablero real del ordenador (oculto)
-   
-    for (int i = 0; i < casillas; i++)
-        for (int j = 0; j < casillas; j++)
-            player_board[i][j] = comp_board[i][j]=0; //he eliminado hits_board
-
-    int estrcjueg[4][2] = {{1,4},{2,3},{3,2},{4,1}}; // {cantidad, tamaño}
-    size_t tipobarcos = sizeof(estrcjueg) / sizeof(estrcjueg[0]);
-
-    printf("Elige modo de colocación para EL JUGADOR:");
-    printf("1) Semimanual (tú eliges inicio+orientación)");
-    printf("2) Automático (el programa coloca los barcos)");
-    int modo_usuario = 0;
-    while (1) {
-        if (scanf("%d", &modo_usuario) != 1) { while(getchar()!='\n'); continue; }
-        if (modo_usuario == 1 || modo_usuario == 2) break;
-        printf("Elige 1 o 2:");
-    }
-
-    // Colocar barcos del jugador
-    if (modo_usuario == 2) {
-        colocar_barcos_auto(casillas, player_board, estrcjueg, tipobarcos);
-        printf("Barcos del jugador colocados automáticamente.");
-    } else {
-        colocar_barcos_usuario(casillas, player_board, estrcjueg, tipobarcos);
-    }
-
-    // Colocar barcos del ordenador (siempre automático)
-    colocar_barcos_auto(casillas, comp_board, estrcjueg, tipobarcos);
-    printf("Barcos del ordenador colocados (oculto).");
-
-    // Bucle de juego: turnos alternos (1 jugador, 2 ordenador)
-    int turno = 1; // 1 = jugador, 2 = ordenador
-    int jugador_gana = 0, maquina_gana = 0;
-
-    while (!jugador_gana && !maquina_gana) {
-        if (turno == 1) {
-            printf("--- Turno del JUGADOR --");
-            imprimir_tableros(casillas, player_board,comp_board);
-            if (disparar_usuario(casillas, comp_board)){
-                // comprobar si todos los barcos de la maquina han sido hundidos
-                int quedan = 0;
-                for (int i = 0; i < casillas; i++)
-                    for (int j = 0; j < casillas; j++)
-                        if (comp_board[i][j] == 1) quedan++;
-                if (quedan == 0) { jugador_gana = 1; break; }
-                printf("Has acertado, dispara de nuevo.");
-                // jugador sigue (en este diseño, podría seguir disparando; para alternancia estricta, comentar lo anterior)
-                // turno = 2; // comentar si quieres que siga disparando al acertar
-            } else {
-                turno = 2;
-            }
-        } else {
-            printf("--- Turno de la MÁQUINA ---");
-            if (disparo_maquina_aleatorio(casillas, player_board)) {
-                // comprobar si quedan barcos jugador
-                int quedan = 0;
-                for (int i = 0; i < casillas; i++)
-                    for (int j = 0; j < casillas; j++)
-                        if (player_board[i][j] == 1) quedan++;
-                if (quedan == 0) { maquina_gana = 1; break; }
-                printf("La máquina acertó y dispara de nuevo.");
-                // maquina sigue; si prefieres alternancia estricta, cambia turno = 1
-            } else {
-                turno = 1;
-            }
-        }
-    }
-
-    if (jugador_gana) printf("¡FELICIDADES! Has hundido toda la flota enemiga.");
-    if (maquina_gana) printf("HAS PERDIDO. La máquina hundió tu flota.");
-
-    printf("Tablero del jugador:"); imprimir_tableros(casillas, player_board,comp_board);
-    printf("Tablero real del ordenador (oculto durante el juego, mostrado ahora):"); imprimir_tableros(casillas, comp_board,comp_board);
+int main(void) {
+    int opcion_menu;
     
+    do {
+        printf("\n--- MENU BATALLA NAVAL ---\n");
+        printf("1. Jugar\n");
+        printf("2. Mejor Puntuacion (Historial)\n");
+        printf("3. Salir\n");
+        printf("Seleccione una opcion: ");
+        
+        if (scanf("%d", &opcion_menu) != 1) {
+            while(getchar() != '\n');
+            continue;
+        }
+
+        if (opcion_menu == 1) {
+            // --- INICIO DE TU LOGICA DE JUEGO ---
+            unsigned seed = (unsigned)(time(NULL) * 100000);
+            srand(seed);
+
+            int casillas;
+            int total_disparos = 0; // NUEVO: Contador
+
+            printf("¿Con cuántas casillas quieres jugar? (1-25): ");
+            while (1) {
+                if (scanf("%d", &casillas) != 1) { while(getchar() != '\n'); printf("Introduce un número: "); continue; }
+                if (casillas >= 1 && casillas <= 25) break;
+                printf("Introduce un número entre 1 y 25:");
+            }
+
+            int player_board[casillas][casillas];
+            int comp_board[casillas][casillas];
+            // Inicializar tableros a 0... (tu codigo de inicializacion aqui)
+            for (int i = 0; i < casillas; i++)
+                for (int j = 0; j < casillas; j++)
+                    player_board[i][j] = comp_board[i][j] = 0;
+
+            int estrcjueg[4][2] = {{1,4},{2,3},{3,2},{4,1}};
+            size_t tipobarcos = sizeof(estrcjueg) / sizeof(estrcjueg[0]);
+
+            printf("Elige modo de colocación para EL JUGADOR:");
+            printf("1) Semimanual (tú eliges inicio+orientación)");
+            printf("2) Automático (el programa coloca los barcos)");
+            int modo_usuario = 0;
+            while (1) {
+                if (scanf("%d", &modo_usuario) != 1) { while(getchar()!='\n'); continue; }
+                if (modo_usuario == 1 || modo_usuario == 2) break;
+                printf("Elige 1 o 2:");
+            }
+
+            // Colocar barcos del jugador
+            if (modo_usuario == 2) {
+                colocar_barcos_auto(casillas, player_board, estrcjueg, tipobarcos);
+                printf("Barcos del jugador colocados automáticamente.");
+            } else {
+                colocar_barcos_usuario(casillas, player_board, estrcjueg, tipobarcos);
+            }
+
+            // Colocar barcos del ordenador (siempre automático)
+            colocar_barcos_auto(casillas, comp_board, estrcjueg, tipobarcos);
+            printf("Barcos del ordenador colocados (oculto).");
+
+    
+           
+            int turno = 1;
+            int jugador_gana = 0, maquina_gana = 0;
+
+            while (!jugador_gana && !maquina_gana) {
+                if (turno == 1) {
+                    total_disparos++; // Incrementamos cada vez que el usuario dispara
+                    printf("--- Turno del JUGADOR --");
+                    imprimir_tableros(casillas, player_board,comp_board);
+                    if (disparar_usuario(casillas, comp_board)) {
+                        // comprobar si todos los barcos de la maquina han sido hundidos
+                        int quedan = 0;
+                        for (int i = 0; i < casillas; i++)
+                            for (int j = 0; j < casillas; j++)
+                                if (comp_board[i][j] == 1) quedan++;
+                        if (quedan == 0) { jugador_gana = 1; break; }
+                        printf("Has acertado, dispara de nuevo.");
+                        // jugador sigue (en este diseño, podría seguir disparando; para alternancia estricta, comentar lo anterior)
+                        // turno = 2; // comentar si quieres que siga disparando al acertar
+                    } else { turno = 2; }
+                } else {
+                    if (disparo_maquina_aleatorio(casillas, player_board)) {
+                        // Comprobar si máquina ganó
+                        int quedan = 0;
+                        for (int i = 0; i < casillas; i++)
+                            for (int j = 0; j < casillas; j++)
+                                if (player_board[i][j] == 1) quedan++;
+                        if (quedan == 0) { maquina_gana = 1; break; }
+                        printf("La máquina acertó y dispara de nuevo.");
+                        // maquina sigue; si prefieres alternancia estricta, cambia turno = 1
+                    } else { turno = 1; }
+                }
+            }
+
+            if (jugador_gana) printf("¡FELICIDADES!");
+            else printf("HAS PERDIDO.");
+
+            // LLAMADA A LA FUNCION DE REGISTRO
+            guardar_puntuacion(total_disparos, jugador_gana);
+            // --- FIN DE TU LOGICA DE JUEGO ---
+
+        } else if (opcion_menu == 2) {
+            mostrar_puntuaciones();
+        }
+
+    } while (opcion_menu != 3);
 
     return 0;
 }
@@ -357,12 +390,11 @@ int disparar_usuario(int casillas, int comp_board[casillas][casillas])
     int fila, columna;
     while (1) {
         printf("Introduce fila y columna para disparar: ");
-        
-        if (scanf(" %d %d", &fila, &columna) != 2) { while(getchar()!='\n'); printf("Formato incorrecto."); continue; }
+        if (scanf(" %d  %d", &fila, &columna) != 2) { while(getchar()!='\n'); printf("Formato incorrecto."); continue; }
         if (fila < 1 || fila > casillas || columna < 1 || columna > casillas) { printf("Fuera de rango (1-%d).", casillas); continue; }
         int f = fila - 1;
         int c = columna - 1;
-        if (comp_board[f][c] != 0 && comp_board[f][c]!= 1) { printf("Ya has disparado ahí."); continue; }
+        if (comp_board[f][c] == 2 || comp_board[f][c] == 3 ||comp_board[f][c] == 4 ) { printf("Ya has disparado ahí."); continue; }
 
         if (comp_board[f][c] == 1) {
             //printf("¡TOCADO!");
@@ -470,3 +502,47 @@ void marcar_como_hundido(int f, int c, int casillas, int board[casillas][casilla
     marcar_como_hundido(f, c + 1, casillas, board);
     marcar_como_hundido(f, c - 1, casillas, board);
 }
+
+void guardar_puntuacion(int disparos, int gano) {
+    FILE *f = fopen("puntuaciones.txt", "a"); // "a" para añadir al final sin borrar
+    if (f == NULL) {
+        printf("Error al abrir el archivo de puntuaciones.\n");
+        return;
+    }
+
+    Registro r;
+    r.disparos = disparos;
+    r.gano = gano;
+
+    // Pedir nombre
+    printf("\nIntroduce tu nombre para el registro: ");
+    scanf("%s", r.nombre);
+
+    // Obtener fecha actual (Año 2026)
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    sprintf(r.fecha, "%02d/%02d/%d", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900);
+
+    // Guardar en el archivo
+    fprintf(f, "Jugador: %s | Fecha: %s | Disparos: %d | Resultado: %s\n",
+            r.nombre, r.fecha, r.disparos, r.gano ? "GANADO" : "PERDIDO");
+
+    fclose(f);
+    printf("Puntuacion guardada correctamente.\n");
+}
+
+void mostrar_puntuaciones() {
+    FILE *f = fopen("puntuaciones.txt", "r");
+    char linea[150];
+    if (f == NULL) {
+        printf("\nNo hay puntuaciones registradas aun.\n");
+        return;
+    }
+    printf("\n--- HISTORIAL DE PUNTUACIONES ---\n");
+    while (fgets(linea, sizeof(linea), f)) {
+        printf("%s", linea);
+    }
+    fclose(f);
+}
+
+
