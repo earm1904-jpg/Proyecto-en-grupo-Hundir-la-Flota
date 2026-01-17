@@ -134,7 +134,10 @@ int main(void) {
                 }
             }
 
-            if (jugador_gana) printf("¡FELICIDADES!");
+            if (jugador_gana){
+                 printf("¡FELICIDADES!");
+                 imprimir_tableros(casillas, comp_board,comp_board);
+            }
             else printf("HAS PERDIDO.");
 
             // LLAMADA A LA FUNCION DE REGISTRO
@@ -153,8 +156,7 @@ int main(void) {
 // --------------------------------------------------
 // Lee y valida entrada del usuario y verifica adyacencia
 // Esta función fusiona la validación de entrada y la comprobación
-// de adyacencia (versipisa_vecino) que pediste.
-// Devuelve 1 si la entrada es válida (formato, rango, libre y sin vecinos), 0 en caso contrario.
+// de adyacencia (versipisa_vecino) .// Devuelve 1 si la entrada es válida (formato, rango, libre y sin vecinos), 0 en caso contrario.
 // fila/columna deben pasarse por puntero (valores 1..casillas)
 // --------------------------------------------------
 int validar_entrada_y_vecino(int *fila, int *columna, int casillas, int board[casillas][casillas])
@@ -383,8 +385,7 @@ void imprimir_tableros(int casillas, int jugador[casillas][casillas], int impact
 // --------------------------------------------------
 // Disparo del usuario contra el tablero del ordenador
 // Actualiza hits_board: 2=agua, 3=impacto
-// Devuelve 1 si ha sido impacto, 0 si agua
-// --------------------------------------------------
+// // --------------------------------------------------
 int disparar_usuario(int casillas, int comp_board[casillas][casillas])
 {
     int fila, columna;
@@ -399,12 +400,12 @@ int disparar_usuario(int casillas, int comp_board[casillas][casillas])
         if (comp_board[f][c] == 1) {
             //printf("¡TOCADO!");
             //hits_board[f][c] = 3;
-            comp_board[f][c] = 3; // marcar como hundido parcial (o quita el barco)
-            // Preparamos matriz de visitados para la comprobación
+            comp_board[f][c] = 3; 
+            //se declara e inicializa visitado , que se usara para detectar
             int visitado[casillas][casillas];
                 for(int i=0; i<casillas; i++) 
                     for(int j=0; j<casillas; j++) visitado[i][j] = 0;
-
+            
                 // 1. Comprobamos si quedan partes vivas (1)
                 if (contar_partes_vivas(f, c, casillas, comp_board, visitado) == 0) {
                     printf("¡BARCO HUNDIDO!\n");
@@ -422,7 +423,7 @@ int disparar_usuario(int casillas, int comp_board[casillas][casillas])
 
         } else {
             printf("Agua.");
-            //hits_board[f][c] = 2;
+            
             comp_board[f][c] = 2;
             return 0;
         }
@@ -453,7 +454,7 @@ int disparo_maquina_aleatorio(int casillas, int player_board[casillas][casillas]
         return 0;
     }
 }
-//dos funciones mas contar partes vivas y marcar 4 hundido
+//dos funciones mas contar partes vivas (si es 1)y marcar 4 hundido
 
 int contar_partes_vivas(int f, int c, int casillas, int board[casillas][casillas], int visitado[casillas][casillas]) {
     // Si salimos del tablero, es agua (0) o ya visitado, paramos

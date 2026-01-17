@@ -1,1 +1,3 @@
 Jugador: jon | Fecha: 17/01/2026 | Disparos: 57 | Resultado: GANADO
+Jugador: jon | Fecha: 17/01/2026 | Disparos: 63 | Resultado: GANADO
+Jugador: jon | Fecha: 17/01/2026 | Disparos: 36 | Resultado: GANADO
