@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "juego.h"
 #include "Validar_ubicacion_barco.h"
-
+//hola
 // Rellenando el tablero con la letra '.' vacio
 void IniciarTableros(tablero *tab)
 {
