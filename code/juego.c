@@ -4,7 +4,7 @@
 
 #include "juego.h"
 #include "Validar_ubicacion_barco.h"
-// Git Status
+// Git Statussss
 
 // Rellenando el tablero con la letra 'A' Agua
 void IniciarTableros(tablero *tab)
