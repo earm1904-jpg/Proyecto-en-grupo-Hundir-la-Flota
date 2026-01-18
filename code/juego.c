@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
 #include "juego.h"
 #include "Validar_ubicacion_barco.h"
 //hola
@@ -19,8 +22,8 @@ void IniciarTableros(tablero *tab)
 void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 {
     int n,i,j;
-    //TotNavs=6 Variable global total de naves
     
+    //TotNavs=6 Variable global total de naves
     while(TotNavs!=0){ //Una vez ubique todas las naves se saldrá del bucle
     
     printf("¿Cómo quieres ubicar el barco, desde Proa  o Popa?\n");
@@ -58,7 +61,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                  if(Nav->orientacion=='H'||Nav->orientacion=='V'){
                     if(FueradelMapa(Nav)==0){
 
-                        if(BarcoAdyacente(tab, Nav)==0){
+                        if(BarcoAdyacente(tab,Nav)==0){
                             UbicarBarco(tab, Nav);
                              Nav->CantidadNAvs=Nav->CantidadNAvs-1;
                              TotNavs=TotNavs-1;
@@ -67,6 +70,13 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                     }
                     
 
+                 }
+                 else{
+                    printf("¿Escoge una opción valida?\n");
+                    printf("¿En qué horientación vas a ubicar el barco?\n");
+                    printf("H Horizontal\n");
+                    printf("V Vertical\n");
+                    scanf(" %c", &Nav->orientacion);
                  }
 
             }
@@ -108,6 +118,13 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                     
 
                  }
+                 else{
+                    printf("¿Escoge una opción valida?\n");
+                    printf("¿En qué horientación vas a ubicar el barco?\n");
+                    printf("H Horizontal\n");
+                    printf("V Vertical\n");
+                    scanf(" %c", &Nav->orientacion);
+                 }
 
             }
 
@@ -120,37 +137,66 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
         //----Pratrulleros-----///
         if(Nav->nombarco=='T'){
 
+            Nav->tamNave=2;
+            Nav->CantidadNAvs=3;
+
+            while(Nav->CantidadNAvs!=0){
+
+                printf("Digita las coordenas para ubicar tu barco, recueda que son números enter cero y once\n");
+                printf("Digita la coordenada de las filas\n");
+                scanf(" %c", &Nav->InicialFilas);
+                printf("Digita la coordenada de las columnas\n");
+                scanf(" %c", &Nav->InicialColum);
+
+                if (Nav->ParteBarco==1|| Nav->ParteBarco==0 )//PROA 1 / 0 POPA
+                {
+                 printf("¿En qué horientación vas a ubicar el barco?\n");
+                 printf("H Horizontal\n");
+                 printf("V Vertical\n");
+                 scanf(" %c", &Nav->orientacion);
+                 if(Nav->orientacion=='H'||Nav->orientacion=='V'){
+                    if(FueradelMapa(Nav)==0){
+
+                        if(BarcoAdyacente(tab, Nav)==0){
+                            UbicarBarco(tab, Nav);
+                            Nav->CantidadNAvs=Nav->CantidadNAvs-1;
+                             TotNavs=TotNavs-1;
+                        }
+                        
+                    }
+                    
+
+                 }
+                 else{
+                    printf("¿Escoge una opción valida?\n");
+                    printf("¿En qué horientación vas a ubicar el barco?\n");
+                    printf("H Horizontal\n");
+                    printf("V Vertical\n");
+                    scanf(" %c", &Nav->orientacion);
+                 }
+
+            }
+
+            }
+
         }
-        printf("\nElige una opción valida");
-
-    }
-
-
-    printf("Digita el primer punto inicial en la fila, para ubicar tu portaviones\n");
-     scanf(" %c", &Portaviones.InicialFilas);    
-
-    printf("Digita el primer punto inicial en la fila, para ubicar tu portaviones\n");
-     scanf(" %c", &Portaviones.InicialFilas);
-     printf("Digita el primer punto inicial en la columan, para ubicar tu portaviones\n");
-     scanf(" %c", &Portaviones.InicialColum);
-     printf("Digita la letra 'h' para horizontal y 'v' para vertical \n");
-     scanf(" %c", &Portaviones.orientacion);
-     printf("Digita 1 para indicar arriba o derecha o 0 para abajo o izquierda \n");
-     scanf(" %c", &Portaviones.direction);
-
-
-    if(n>=0||n<TAM_TABLERO){
-    if(Nav.orientacion=='v'){ //  Vertical
-        if (Nav.direction==1) //indica UP
-        {
-            for(){
-            
-                }
-        }
+        else{
+            printf("¿Escoge una opción valida?\n");
+            }
         
     }
-    return 1;
- }
+    printf("\n Has ubicado todas tus NAVES");
+
+
+}
+
+
+
+void UbicarNavesPC(tablero *tab,Naves *Nav){
+
+
+
+
 
 }
 
