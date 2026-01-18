@@ -39,7 +39,6 @@ void UbicarNavesPlayer(Naves *Nav)
     if (Nav->nombarco=='P'){ 
         Nav->tamNave=4;
         Nav->CantidadNAvs=1;
-        if(Nav->CantidadNAvs==1){
             if (Nav->ParteBarco==1|| Nav->ParteBarco==0 )//PROA 1 / 0 POPA
             {
                  printf("¿En qué horientación vas a ubicar el barco?\n");
@@ -47,12 +46,13 @@ void UbicarNavesPlayer(Naves *Nav)
                  printf("V Vertical\n");
                  scanf(" %c", &Nav->orientacion);
                  if(Nav->orientacion=='H'){
+                    
 
                  }
 
             }
             
-        }
+        
         else{
             printf("Ya no tienes más Portaviones\n");
 
