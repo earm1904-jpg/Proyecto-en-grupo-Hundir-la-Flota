@@ -104,7 +104,34 @@ int BarcoAdyacente(tablero *tabJu_Or, Naves *NavPL_OR)
 
 void UbicarBarco(tablero *tabJu_Or, Naves *NavPL_OR)
 {
-
-
-
+    /* Validar que el barco no esté fuera del mapa
+    if (FueradelMapa(NavPL_OR) == 1) {
+        printf("No se puede colocar el barco: fuera del mapa\n");
+        return;
+    }
+    */
+    /* Validar que no haya barcos adyacentes
+    if (BarcoAdyacente(tabJu_Or, NavPL_OR) == 1) {
+        printf("No se puede colocar el barco: posición ocupada o adyacente a otro barco\n");
+        return;
+    }
+    */
+    // Si cumple todas las condiciones, colocar el barco en el tablero
+    if (NavPL_OR->orientacion == 'V') {
+        // Barco vertical
+        for (int i = 0; i < NavPL_OR->tamNave; i++) {
+            tabJu_Or->espacio[NavPL_OR->InicialFilas + i][NavPL_OR->InicialColum] = NavPL_OR->nombarco;
+        }
+        printf("Barco %c colocado verticalmente en posición (%d,%d)\n", 
+               NavPL_OR->nombarco, NavPL_OR->InicialFilas, NavPL_OR->InicialColum);
+    } 
+    else if (NavPL_OR->orientacion == 'H') {
+        // Barco horizontal
+        for (int i = 0; i < NavPL_OR->tamNave; i++) {
+            tabJu_Or->espacio[NavPL_OR->InicialFilas][NavPL_OR->InicialColum + i] = NavPL_OR->nombarco;
+        }
+        printf("Barco %c colocado horizontalmente en posición (%d,%d)\n", 
+               NavPL_OR->nombarco, NavPL_OR->InicialFilas, NavPL_OR->InicialColum);
+    }
 }
+
