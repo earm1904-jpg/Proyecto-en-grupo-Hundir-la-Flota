@@ -22,7 +22,7 @@ typedef struct
    int InicialFilas;
    int InicialColum;
    int CantidadNAvs;
-   char orientacion; //Horizontal'H' o Vertical 'v'
+   char orientacion; //Horizontal'H' o Vertical 'v' Para el rand() del PC 0->Horizontal 1->Vertical
    int ParteBarco; // 1 para POPA y 0 para PROA
    //int direction;// 1 UP, right 0 Down, left
    
