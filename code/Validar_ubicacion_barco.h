@@ -4,6 +4,6 @@
 
 int FueradelMapa(Naves *Nav);
 int BarcoAdyacente(tablero, Naves );
-int puede_colocar_barco();
-int ConfirmaBarco();
+//int puede_colocar_barco();
+void UbicarBarco(tablero *tabJu_Or, Naves *NavPL_OR);
 #endif

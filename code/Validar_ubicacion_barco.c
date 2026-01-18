@@ -102,7 +102,7 @@ int BarcoAdyacente(tablero *tabJu_Or, Naves *NavPL_OR)
 //Confirma y ubica los barcos según las condiciones de las funciones anteriores//
 //-----------------------------------------------------------------------------//
 
-void ConfirmaBarco()
+void UbicarBarco(tablero *tabJu_Or, Naves *NavPL_OR)
 {
 
 
