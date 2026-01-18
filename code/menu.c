@@ -7,6 +7,7 @@
 #include "ShowTablero.h"
 #include "juego.h"
 #include "turno.h"
+#include "puntuaciones.h"
 
 int main()
 {
