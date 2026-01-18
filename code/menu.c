@@ -6,6 +6,7 @@
 #include "Validar_ubicacion_barco.h"
 #include "ShowTablero.h"
 #include "juego.h"
+#include "turno.h"
 
 int main()
 {
@@ -28,12 +29,16 @@ int main()
     case 'j':
     tablero TabPlayer; //Se crea el tablero del jugador
     tablero TabDisparosPlayer;// Es el tablero de visualización de los disparo hechos por el jugador
+
     tablero TabContr; // Se crea el tablero del contrincante
+    tablero TabDisparosPC; // Se crea el tablero de disparos del PC
 
     //Inicialziación de los tablero con la letra "A" Agua
     IniciarTableros(&TabPlayer); 
     IniciarTableros(&TabContr);
     IniciarTableros(&TabDisparosPlayer); 
+    IniciarTableros(&TabDisparosPC); 
+
       printf("----------INICIEMOS EL JUEGO------------ \n\n");
     printf("Debes ubicar 6 anves:\nUn Portaviones de cuatro posiciones,\nDos Cruceros de tres posiciones cada uno\ny Tres Patrulleros de dos posiciones cada uno.\nEl tablero cuenta con numeros que van del 0 al 11.\nCon estos numeros te puedes guiar para dar la ubicacion de tus naves\n\n");
     printf("Recuerda que los barcos tiene cuatro direcciones principales:\n LA PROA (Delante)\n LA POPA (Atrás)\n BABOR (Izquierda)\n ESTRIBOR (Derecha) \n\n");
