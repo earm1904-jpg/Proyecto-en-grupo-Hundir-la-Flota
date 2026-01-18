@@ -7,6 +7,7 @@
 #define AGUA 'A'
 #define IMPACTO 'X'
 #define FALLA '0'
+int TotNavs=6;// Variable Global para saber la cantidad de naves del juego
 
 // crear tablero
 typedef struct
