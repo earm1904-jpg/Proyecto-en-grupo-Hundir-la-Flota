@@ -31,7 +31,8 @@ typedef struct
 
 // funciones
 void IniciarTableros(tablero *tab);
-void UbicarNavesPlayer(Naves *Nav);
+void UbicarNavesPlayer(tablero *tab,Naves *Nav);
+void UbicarNavesPC(tablero *tab,Naves *Nav);
 
 //void UbicarNavesContr(Naves Nav);
 //void DisparoJugador(int C1, int i);
