@@ -18,8 +18,8 @@ void IniciarTableros(tablero *tab)
 
 void UbicarNavesPlayer(Naves *Nav)
 {
-    int n,i,j,TotNavs;
-    TotNavs=6;// total de naves
+    int n,i,j;
+    //TotNavs=6 Variable global total de naves
     //char nombarco; //guardar el nombre del barco
     
     while(TotNavs!=0){ //Una vez ubique todas las naves se saldrá del bucle
