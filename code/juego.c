@@ -16,7 +16,7 @@ void IniciarTableros(tablero *tab)
 
 }
 
-void UbicarNavesPlayer(Naves *Nav)
+void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 {
     int n,i,j;
     //TotNavs=6 Variable global total de naves
@@ -35,29 +35,58 @@ void UbicarNavesPlayer(Naves *Nav)
     printf("T Patrullero\n");
     scanf(" %c", &Nav->nombarco);
 
+    printf("Digita las coordenas para ubicar tu barco, recueda que son números enter cero y once\n");
+    printf("Digita la coordenada de las filas\n");
+    scanf(" %c", &Nav->InicialFilas);
+    printf("Digita la coordenada de las columnas\n");
+    scanf(" %c", &Nav->InicialColum);
+
     //----Portaviones-----///
     if (Nav->nombarco=='P'){ 
         Nav->tamNave=4;
         Nav->CantidadNAvs=1;
+            if(Nav->CantidadNAvs==1){
             if (Nav->ParteBarco==1|| Nav->ParteBarco==0 )//PROA 1 / 0 POPA
             {
                  printf("¿En qué horientación vas a ubicar el barco?\n");
                  printf("H Horizontal\n");
                  printf("V Vertical\n");
                  scanf(" %c", &Nav->orientacion);
-                 if(Nav->orientacion=='H'){
-                    
+                 if(Nav->orientacion=='H'||Nav->orientacion=='V'){
+                    if(FueradelMapa(Nav)==0){
+
+                        if(BarcoAdyacente(tab, Nav)==0){
+                            UbicarBarco(tab, Nav);
+                        }
+                        else{
+                            printf("Digita las coordenas para ubicar tu barco, recueda que son números enter cero y once\n");
+                            printf("Digita la coordenada de las filas\n");
+                            scanf(" %c", &Nav->InicialFilas);
+                            printf("Digita la coordenada de las columnas\n");
+                            scanf(" %c", &Nav->InicialColum);
+
+                        }
+                    }
+                    else{
+                        printf("Digita las coordenas para ubicar tu barco, recueda que son números enter cero y once\n");
+                        printf("Digita la coordenada de las filas\n");
+                        scanf(" %c", &Nav->InicialFilas);
+                        printf("Digita la coordenada de las columnas\n");
+                        scanf(" %c", &Nav->InicialColum);
+
+                    }
 
                  }
 
             }
             
-        
+        }
+
         else{
             printf("Ya no tienes más Portaviones\n");
 
         }
-    
+        TotNavs=TotNavs-1;
         }
         //----Cruceros-----///
         if(nombarco=='C'){
