@@ -2,13 +2,13 @@
 #include "juego.h"
 #include "Validar_ubicacion_barco.h"
 
-int int FueradelMapa(Naves *Nav)
+int FueradelMapa(Naves *Nav)
 {
     int k=0; //variable encargada guardar el número de casillas a las que está el punto de inicio con respecto a los puntos de inicio del tablero para colocar el barco
 
     
     if(Nav->InicialColum <0 || Nav->InicialColum> TAM_TABLERO-1 ||Nav->InicialFilas <0||Nav->InicialFilas >TAM_TABLERO-1){ //Comprobar si la nave cabe dentro del tablero
-        printf("El barco no puede ubicarse porque queda fuera del tablero")
+        printf("El barco no puede ubicarse porque queda fuera del tablero");
         return 1;
     }
 
@@ -61,7 +61,7 @@ if (Nav->orientacion=='H'){
 int BarcoAdyacente(tablero *tabJu_Or, Naves *NavPL_OR)
     {
   
-    for (int i = 0; i < TAM_TABLERO i++)
+    for (int i = 0; i < TAM_TABLERO; i++)
     {
         for (int j = 0; i < TAM_TABLERO; j++)
         {
@@ -83,7 +83,7 @@ int BarcoAdyacente(tablero *tabJu_Or, Naves *NavPL_OR)
                          if (di == 0 && dj == 0) continue;
                          int nf = NavPL_OR->InicialFilas + di;
                         int nc = NavPL_OR->InicialColum + dj;
-                        if (nf >= 0 && nf < casillas && nc >= 0 && nc < casillas) {
+                        if (nf >= 0 && nf < TAM_TABLERO && nc >= 0 && nc < TAM_TABLERO) {
                             if (tabJu_Or->espacio[nf][nc]== AGUA) return 1;
                         }
                             }
@@ -122,16 +122,13 @@ void UbicarBarco(tablero *tabJu_Or, Naves *NavPL_OR)
         for (int i = 0; i < NavPL_OR->tamNave; i++) {
             tabJu_Or->espacio[NavPL_OR->InicialFilas + i][NavPL_OR->InicialColum] = NavPL_OR->nombarco;
         }
-        printf("Barco %c colocado verticalmente en posición (%d,%d)\n", 
-               NavPL_OR->nombarco, NavPL_OR->InicialFilas, NavPL_OR->InicialColum);
+ 
     } 
     else if (NavPL_OR->orientacion == 'H') {
         // Barco horizontal
         for (int i = 0; i < NavPL_OR->tamNave; i++) {
             tabJu_Or->espacio[NavPL_OR->InicialFilas][NavPL_OR->InicialColum + i] = NavPL_OR->nombarco;
         }
-        printf("Barco %c colocado horizontalmente en posición (%d,%d)\n", 
-               NavPL_OR->nombarco, NavPL_OR->InicialFilas, NavPL_OR->InicialColum);
     }
 }
 
