@@ -104,6 +104,7 @@ int BarcoAdyacente(tablero *tabJu_Or, Naves *NavPL_OR)
 
 void UbicarBarco(tablero *tabJu_Or, Naves *NavPL_OR)
 {
+
     /* Validar que el barco no esté fuera del mapa
     if (FueradelMapa(NavPL_OR) == 1) {
         printf("No se puede colocar el barco: fuera del mapa\n");
@@ -131,4 +132,6 @@ void UbicarBarco(tablero *tabJu_Or, Naves *NavPL_OR)
         }
     }
 }
+
+
 
