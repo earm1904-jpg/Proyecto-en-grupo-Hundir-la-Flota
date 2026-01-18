@@ -62,7 +62,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                  if(Nav->orientacion=='H'||Nav->orientacion=='V'){
                     if(FueradelMapa(Nav)==0){
 
-                        if(BarcoAdyacente(*tab,*Nav)==0){
+                        if(BarcoAdyacente(tab,Nav)==0){
                             UbicarBarco(tab, Nav);
                              Nav->CantidadNAvs=Nav->CantidadNAvs-1;
                              TotNavs=TotNavs-1;
@@ -109,7 +109,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                  if(Nav->orientacion=='H'||Nav->orientacion=='V'){
                     if(FueradelMapa(Nav)==0){
 
-                        if(BarcoAdyacente(*tab,*Nav)==0){
+                        if(BarcoAdyacente(tab,Nav)==0){
                             UbicarBarco(tab, Nav);
                             Nav->CantidadNAvs=Nav->CantidadNAvs-1;
                              TotNavs=TotNavs-1;
@@ -158,7 +158,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                  if(Nav->orientacion=='H'||Nav->orientacion=='V'){
                     if(FueradelMapa(Nav)==0){
 
-                        if(BarcoAdyacente(*tab,*Nav)==0){
+                        if(BarcoAdyacente(tab,Nav)==0){
                             UbicarBarco(tab, Nav);
                             Nav->CantidadNAvs=Nav->CantidadNAvs-1;
                              TotNavs=TotNavs-1;
