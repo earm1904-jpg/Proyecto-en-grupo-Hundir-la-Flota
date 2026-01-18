@@ -41,7 +41,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
         Nav->tamNave=4;
         Nav->CantidadNAvs=1;
 
-            while(Nav->CantidadNAvs!=0;){
+            while(Nav->CantidadNAvs!=0){
 
                 printf("Digita las coordenas para ubicar tu barco, recueda que son números enter cero y once\n");
                 printf("Digita la coordenada de las filas\n");
@@ -95,7 +95,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
             Nav->tamNave=3;
             Nav->CantidadNAvs=2;
 
-            while(Nav->CantidadNAvs!=0;){
+            while(Nav->CantidadNAvs!=0){
 
                 printf("Digita las coordenas para ubicar tu barco, recueda que son números enter cero y once\n");
                 printf("Digita la coordenada de las filas\n");
