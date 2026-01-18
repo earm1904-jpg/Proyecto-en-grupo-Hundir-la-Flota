@@ -2,6 +2,7 @@
 #include "juego.h"
 #include "Validar_ubicacion_barco.h"
 
+//Commit
 int FueradelMapa(Naves *Nav)
 {
     int k=0; //variable encargada guardar el número de casillas a las que está el punto de inicio con respecto a los puntos de inicio del tablero para colocar el barco
@@ -104,18 +105,7 @@ int BarcoAdyacente(tablero *tabJu_Or, Naves *NavPL_OR)
 
 void UbicarBarco(tablero *tabJu_Or, Naves *NavPL_OR)
 {
-    /* Validar que el barco no esté fuera del mapa
-    if (FueradelMapa(NavPL_OR) == 1) {
-        printf("No se puede colocar el barco: fuera del mapa\n");
-        return;
-    }
-    */
-    /* Validar que no haya barcos adyacentes
-    if (BarcoAdyacente(tabJu_Or, NavPL_OR) == 1) {
-        printf("No se puede colocar el barco: posición ocupada o adyacente a otro barco\n");
-        return;
-    }
-    */
+    
     // Si cumple todas las condiciones, colocar el barco en el tablero
     if (NavPL_OR->orientacion == 'V') {
         // Barco vertical
