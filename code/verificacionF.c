@@ -42,9 +42,6 @@ int JuegoTerminado(tablero *tabEnemigas, tablero *tabDisparos)
     return 0;  // Juego aún en curso
 }
 
-/* Función: DeterminarGanador
-// Propósito: Determinar quién ganó basándose en los tableros de disparos
-// Retorna:
 //   1 = El jugador ganó (hundió todos los barcos del PC)
 //   -1 = La máquina ganó (hundió todos los barcos del jugador)
 //   0 = El juego aún no ha terminado
@@ -74,4 +71,4 @@ int DeterminarGanador(tablero *TabPlayer, tablero *TabContr, tablero *TabDisparo
     // El juego aún no ha terminado
     return 0;
 }
-*/
+
