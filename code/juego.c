@@ -63,23 +63,9 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                              Nav->CantidadNAvs=Nav->CantidadNAvs-1;
                              TotNavs=TotNavs-1;
                         }
-                        else{
-                            printf("Digita las coordenas para ubicar tu barco, recueda que son números enter cero y once\n");
-                            printf("Digita la coordenada de las filas\n");
-                            scanf(" %c", &Nav->InicialFilas);
-                            printf("Digita la coordenada de las columnas\n");
-                            scanf(" %c", &Nav->InicialColum);
-
-                        }
+                        
                     }
-                    else{
-                        printf("Digita las coordenas para ubicar tu barco, recueda que son números enter cero y once\n");
-                        printf("Digita la coordenada de las filas\n");
-                        scanf(" %c", &Nav->InicialFilas);
-                        printf("Digita la coordenada de las columnas\n");
-                        scanf(" %c", &Nav->InicialColum);
-
-                    }
+                    
 
                  }
 
