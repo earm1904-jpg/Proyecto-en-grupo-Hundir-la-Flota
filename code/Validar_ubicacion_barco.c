@@ -132,6 +132,3 @@ void UbicarBarco(tablero *tabJu_Or, Naves *NavPL_OR)
         }
     }
 }
-
-
-
