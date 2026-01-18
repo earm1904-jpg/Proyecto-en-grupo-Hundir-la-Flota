@@ -1,14 +1,15 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "Validar_ubicacion_barco.h"
 #include "ShowTablero.h"
-//#include "UbicarNaves.h"
 #include "juego.h"
 
 int main()
 {
+  srand(time(NULL));
   char ResMen;
 
   // menu de opciones
@@ -37,24 +38,22 @@ int main()
     printf("Debes ubicar 6 anves:\nUn Portaviones de cuatro posiciones,\nDos Cruceros de tres posiciones cada uno\ny Tres Patrulleros de dos posiciones cada uno.\nEl tablero cuenta con numeros que van del 0 al 11.\nCon estos numeros te puedes guiar para dar la ubicacion de tus naves\n\n");
     printf("Recuerda que los barcos tiene cuatro direcciones principales:\n LA PROA (Delante)\n LA POPA (Atrás)\n BABOR (Izquierda)\n ESTRIBOR (Derecha) \n\n");
     ShowTablero(TabPlayer);
-    //Crando las naves y su puntos iniciales para posicinarlas en el tablero
+    //Crando las naves y asignado nombarco y tamNave;
 
-    Naves Portaviones{'P',4};
-     /*printf("Digita el primer punto inicial en la fila, para ubicar tu portaviones\n");
-     scanf(" %c", &Portaviones.InicialFilas);
-     printf("Digita el primer punto inicial en la columan, para ubicar tu portaviones\n");
-     scanf(" %c", &Portaviones.InicialColum);
-     printf("Digita la letra 'h' para horizontal y 'v' para vertical \n");
-     scanf(" %c", &Portaviones.orientacion);
-     printf("Digita 1 para indicar arriba o derecha o 0 para abajo o izquierda \n");
-     scanf(" %c", &Portaviones.direction);
-    */
+    Naves Portaviones={'P',4};
+    Naves Crucero1={'C',3};
+    Naves Crucero2={'C',3};
+    Naves Pratullero1={'T',2};
+    Naves Pratullero2={'T',2};
+    Naves Pratullero3={'T',2};
 
-    Naves Crucero1{'C',3};
-    Naves Crucero2{'C',3};
-    Naves Pratullero1{'T',2};
-    Naves Pratullero2{'T',2};
-    Naves Pratullero3{'T',2};
+    //Ubicando cada nave del Player en el tablero TabPlayer
+    UbicarNavesPlayer(&TabPlayer,&Crucero1);
+    UbicarNavesPlayer(&TabPlayer,&Crucero2);
+    UbicarNavesPlayer(&TabPlayer,&Portaviones);
+    UbicarNavesPlayer(&TabPlayer,&Pratullero1);
+    UbicarNavesPlayer(&TabPlayer,&Pratullero2);
+    UbicarNavesPlayer(&TabPlayer,&Pratullero3);
     
     break;
 
