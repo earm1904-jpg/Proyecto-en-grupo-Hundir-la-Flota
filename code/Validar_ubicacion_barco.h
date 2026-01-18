@@ -3,7 +3,6 @@
 #include "juego.h"
 
 int FueradelMapa(Naves *Nav);
-int BarcoAdyacente(tablero, Naves );
-//int puede_colocar_barco();
+int BarcoAdyacente(tablero *tabJu_Or, Naves *NavPL_OR);
 void UbicarBarco(tablero *tabJu_Or, Naves *NavPL_OR);
 #endif

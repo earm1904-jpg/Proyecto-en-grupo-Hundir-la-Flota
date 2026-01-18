@@ -4,8 +4,9 @@
 
 #include "juego.h"
 #include "Validar_ubicacion_barco.h"
-//hola
-// Rellenando el tablero con la letra '.' vacio
+// Git Statussss
+
+// Rellenando el tablero con la letra 'A' Agua
 void IniciarTableros(tablero *tab)
 {
     for (int i = 0; i < TAM_TABLERO; i++)
@@ -21,7 +22,7 @@ void IniciarTableros(tablero *tab)
 
 void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 {
-    int n,i,j;
+  
     
     //TotNavs=6 Variable global total de naves
     while(TotNavs!=0){ //Una vez ubique todas las naves se saldrá del bucle
@@ -191,13 +192,140 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 }
 
 
-
 void UbicarNavesPC(tablero *tab,Naves *Nav){
 
+      int nDirec; // Variable para el randon de la dirección de las naves 0->Horizontal, 1->Vertical
+
+ while(TotNavs!=0){
+    Nav->ParteBarco= rand()% 1; 
+    nDirec=Nav->ParteBarco; 
+    
+    //Portaviones PC
+    if (Nav->nombarco=='P'){ 
+        Nav->tamNave=4;
+        Nav->CantidadNAvs=1;
+
+            while(Nav->CantidadNAvs!=0){
+
+              // Valores randon para la posición incial de cada nave de 0-11
+                Nav->InicialFilas=rand()% 11;
+                Nav->InicialColum=rand()% 11;
+
+            if (Nav->ParteBarco==1|| Nav->ParteBarco==0 )//PROA 1 / 0 POPA
+            {
+                 if(nDirec==1){
+                    Nav->orientacion='V';
+
+                 }
+                 else{
+                    Nav->orientacion='H';
+                 }
+
+                 if(Nav->orientacion=='H'||Nav->orientacion=='V'){
+                    if(FueradelMapa(Nav)==0){
+
+                        if(BarcoAdyacente(tab,Nav)==0){
+                            UbicarBarco(tab, Nav);
+                             Nav->CantidadNAvs=Nav->CantidadNAvs-1;
+                             TotNavs=TotNavs-1;
+                        }
+                        
+                    }
+                    
+
+                 }
+                 
+            }
+            
+        }
+        
+        }
 
 
+        //Cruceros PC
+        if (Nav->nombarco=='C'){ 
+        Nav->tamNave=3;
+        Nav->CantidadNAvs=2;
 
+            while(Nav->CantidadNAvs!=0){
 
+              // Valores randon para la posición incial de cada nave de 0-11
+                Nav->InicialFilas=rand()% 11;
+                Nav->InicialColum=rand()% 11;
+
+            if (Nav->ParteBarco==1|| Nav->ParteBarco==0 )//PROA 1 / 0 POPA
+            {
+                 if(nDirec==1){
+                    Nav->orientacion='V';
+
+                 }
+                 else{
+                    Nav->orientacion='H';
+                 }
+
+                 if(Nav->orientacion=='H'||Nav->orientacion=='V'){
+                    if(FueradelMapa(Nav)==0){
+
+                        if(BarcoAdyacente(tab,Nav)==0){
+                            UbicarBarco(tab, Nav);
+                             Nav->CantidadNAvs=Nav->CantidadNAvs-1;
+                             TotNavs=TotNavs-1;
+                        }
+                        
+                    }
+                    
+
+                 }
+                 
+            }
+            
+        }
+        
+        }
+
+        //Patrulleros PC
+        if (Nav->nombarco=='T'){ 
+        Nav->tamNave=2;
+        Nav->CantidadNAvs=3;
+
+            while(Nav->CantidadNAvs!=0){
+
+              // Valores randon para la posición incial de cada nave de 0-11
+                Nav->InicialFilas=rand()% 11;
+                Nav->InicialColum=rand()% 11;
+
+            if (Nav->ParteBarco==1|| Nav->ParteBarco==0 )//PROA 1 / 0 POPA
+            {
+                 if(nDirec==1){
+                    Nav->orientacion='V';
+
+                 }
+                 else{
+                    Nav->orientacion='H';
+                 }
+
+                 if(Nav->orientacion=='H'||Nav->orientacion=='V'){
+                    if(FueradelMapa(Nav)==0){
+
+                        if(BarcoAdyacente(tab,Nav)==0){
+                            UbicarBarco(tab, Nav);
+                             Nav->CantidadNAvs=Nav->CantidadNAvs-1;
+                             TotNavs=TotNavs-1;
+                        }
+                        
+                    }
+                    
+
+                 }
+                 
+            }
+            
+        }
+        
+        }
+
+ }
 }
+
 
 
