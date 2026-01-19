@@ -7,8 +7,8 @@
 
 
 int ImpactoNav(Nave *Nav, tablero *tab, tablero *tabDisp){
-    Nav->ImpacNav=Nav->tamNave; //falta determinar de qué forma inicialziar la variable
-
+    // NO se reinicia Nav->ImpacNav aquí, se mantiene su valor anterior
+    
     printf("Digita las coordenas de disparo, recueda que son números enteros cero y once\n");
     printf("Digita la coordenada de las fila\n");
     scanf(" %d",&CoorImpFilas);
@@ -17,36 +17,34 @@ int ImpactoNav(Nave *Nav, tablero *tab, tablero *tabDisp){
 
      if(CoorImpColumn>=0&&CoorImpColumn<TAM_TABLERO && CoorImpFilas>=0&&CoorImpFilas< TAM_TABLERO){
 
-     for (int i = 0; i < TAM_TABLERO; i++)
-        {
+        // Verificar si ya se disparó en esta posición
+        if(tabDisp->espacio[CoorImpFilas][CoorImpColumn]=='X' || tabDisp->espacio[CoorImpFilas][CoorImpColumn]=='0'){
+            printf("Ya disparaste en esta posición\n");
+            return 0;
+        }
 
-        for (int j = 0; j < TAM_TABLERO; j++)
-            {
-                if(tab->espacio[i][j]!=AGUA){
-                    if(CoorImpFilas==i && CoorImpColumn==j){
-                        Nav->ImpacNav=Nav->ImpacNav-1;
-                        tab->espacio[CoorImpFilas][CoorImpColumn]='X';
-                        tabDisp->espacio[CoorImpFilas][CoorImpColumn]='X';
-                         printf("Has impactado una nave\n");
-                         return 1;
-                        if(Nav->ImpacNav==0){ //HUNDIDO
-                            hundidos=hundidos+1;
-                            printf("Has hundido una nave\n");
-                            return 1;
-                        }
-                        
-
-                    }
-                    else{
-                            tabDisp->espacio[CoorImpFilas][CoorImpColumn]='0';
-                           printf("Ninguna nave inpactada\n");
-                        }
-
-                     
-                }
+        // Verificar directamente si hay barco en la coordenada ingresada
+        if(tab->espacio[CoorImpFilas][CoorImpColumn]!=AGUA){
+            // Hay un barco
+            Nav->ImpacNav=Nav->ImpacNav-1;
+            tab->espacio[CoorImpFilas][CoorImpColumn]='X';
+            tabDisp->espacio[CoorImpFilas][CoorImpColumn]='X';
             
+            if(Nav->ImpacNav==0){ //HUNDIDO
+                hundidos=hundidos+1;
+                printf("Has hundido una nave\n");
             }
-         }
+            else{
+                printf("Has impactado una nave\n");
+            }
+            return 1;
+        }
+        else{
+            // Es agua - no hay barco
+            tabDisp->espacio[CoorImpFilas][CoorImpColumn]='0';
+            printf("Ninguna nave impactada\n");
+            return 0;
+        }
         }
         else{
                  printf("Coordenadas no validas\n");
@@ -72,76 +70,48 @@ void turnosPlayers(Nave *Nav, tablero *tabPlayer, tablero *tabPC){
 
 
 }
-/*//Devuelve 1 si impactas en un barco y 0 si has fallado o ya habias dicho las coordenadas.
 
-int ImpactoNav(Nave *Nav, tablero *tab, tablero *tabDisp){
-    printf("Dime las coordenadas de disparo.\n", TAM_TABLERO -1);
-    printf("Dime la coordenada de la fila: ");
-
-//Los dos primeros if es para comprobar que lo que se introduce son números y no letras o símbolos
-    if (scanf("%d", &CoorImpFilas)!= 1)
-        return 0;
+// FUNCIÓN PARA QUE LA PC ATAQUE
+int AtaquePC(tablero *tabPlayer, tablero *tabDisparosPC){
+    int fila, columna;
     
-    printf("Dime la coordenada de la columna: ");
-    if (scanf("%d", &CoorImpColumn)!= 1)
-        return 0;
-// Este if es para comprobar que las coordenadas están dentro del tablero.
-    if (CoorImpFilas < 0 || CoorImpFilas >= TAM_TABLERO || CoorImpColumn < 0 || CoorImpColumn >= TAM_TABLERO){
-        printf ("Coordenadas no válidas\n");
+    do {
+        fila = rand() % TAM_TABLERO;
+        columna = rand() % TAM_TABLERO;
+    } while(tabDisparosPC->espacio[fila][columna] != AGUA);
+    
+    printf("\nLa PC dispara a: Fila %d, Columna %d\n", fila, columna);
+    
+    if(tabPlayer->espacio[fila][columna] != AGUA){
+        tabPlayer->espacio[fila][columna] = 'X';
+        tabDisparosPC->espacio[fila][columna] = 'X';
+        printf("¡La PC ha impactado uno de tus barcos!\n");
+        return 1;
+    }
+    else{
+        tabDisparosPC->espacio[fila][columna] = '0';
+        printf("La PC ha disparado a agua.\n");
         return 0;
     }
-//Este if es para ver si ya habías introducido estas coordenadas.
-    if (tabDisp->espacio[CoorImpFilas][CoorImpColumn]== IMPACTO || tabDisp->espacio[CoorImpFilas][CoorImpColumn] == FALLA)
-    {
-        printf("Ya has disparado en esta posición. \n");
-        return 0;
-    }
-//Como no hace falta recorrer todo el tablero, vamos a hacer una comprobación directa en la coordenada puesta
-    if (tab->espacio[CoorImpFilas][CoorImpColumn]!= AGUA)
-    {
-        if (Nav != NULL && Nav->ImpacNav <= 0)
-        {
-            Nav->ImpacNav = Nav->tamNave;
-        }
-            
-        if (Nav != NULL)
-        {
-            Nav->ImpacNav--;
-        }
-
-        tab->espacio[CoorImpFilas][CoorImpColumn] = IMPACTO;
-        tabDisp->espacio[CoorImpFilas][CoorImpColumn] = IMPACTO;
-
-        if (Nav != NULL && Nav->ImpacNav == 0)
-        {
-            hundidos++;
-            printf("Has hundido un barco. \n");
-        }
-        else
-        {
-            printf("Has impoactado un barco. \n");
-        }
-        return 1; 
-        //Devuelve uno porque ha sido un acierto
-    }
-    tabDisp->espacio[CoorImpFilas][CoorImpColumn] = FALLA;
-    printf("No le has dado a ningún barco. \n");
-    return 0;
 }
-//Funcion para contar los turnos.
-void turnosPlayers(Nave *Nav, tablero *tabPlayer, tablero *tabPC){
-    int acierto = ImpactoNav(Nav, tabPC, tabPlayer);
-    disparos++;
-    //Si aciertas repites
-    if (acierto)
-    {
-        acierto = ImpactoNav(Nav, tabPC, tabPlayer);
-        disparos++;
+
+// FUNCIÓN PARA CONTAR BARCOS RESTANTES
+int ContarBarcosRestantes(tablero *tab){
+    int impactos = 0;
+    for(int i = 0; i < TAM_TABLERO; i++){
+        for(int j = 0; j < TAM_TABLERO; j++){
+            // Contar los impactos (X) - cuando un barco es impactado
+            if(tab->espacio[i][j] == 'X'){
+                impactos++;
+            }
+        }
     }
-    //si fallas cambias turno.
-    else
-    {
-        turno++;
-    }
+    // Total de casillas de barcos: 1 Portaviones (4) + 2 Cruceros (3+3) + 3 Patrulleros (2+2+2) = 16
+    // Si hay 16 impactos, todos los barcos están hundidos
+    int totalBarcosHundidos = 16;
     
-}*/
+    if(impactos >= totalBarcosHundidos){
+        return 0; // No hay barcos restantes
+    }
+    return 1; // Hay barcos restantes
+}
