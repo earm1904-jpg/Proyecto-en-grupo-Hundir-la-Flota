@@ -2,7 +2,7 @@
 #include "juego.h"
 #include "Validar_ubicacion_barco.h"
 
-//Commit
+//Commit 1
 int FueradelMapa(Naves *Nav)
 {
     int k=0; //variable encargada guardar el número de casillas a las que está el punto de inicio con respecto a los puntos de inicio del tablero para colocar el barco
