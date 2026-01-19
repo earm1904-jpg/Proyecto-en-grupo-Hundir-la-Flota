@@ -9,6 +9,12 @@
 #include "turno.h"
 #include "puntuaciones.h"
 
+// Definición de variables globales
+int TotNavs = 6;
+int disparos = 0;
+int hundidos = 0;
+int CoorImpFilas = 0, CoorImpColumn = 0, turno = 0;
+
 int main()
 {
   srand(time(NULL));

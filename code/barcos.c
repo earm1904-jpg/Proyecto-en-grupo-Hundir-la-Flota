@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include <windows.h>   // WinApi header
+// #include <windows.h>   // WinApi header (comentado para Linux)
 
 
 // Prototipos
@@ -22,8 +22,9 @@ int disparo_maquina_aleatorio(int casillas, int player_board[casillas][casillas]
 void marcar_como_hundido(int f, int c, int casillas, int board[casillas][casillas]);
 int contar_partes_vivas(int f, int c, int casillas, int board[casillas][casillas], int visitado[casillas][casillas]);
 // --------------------------------------------------
-// MAIN
+// MAIN (comentado - el main está en menu.c)
 // --------------------------------------------------
+/*
 int main(void)
 {
     unsigned seed = (unsigned)(time(NULL) * 100000);
@@ -116,6 +117,7 @@ int main(void)
 
     return 0;
 }
+*/
 
 // --------------------------------------------------
 // Lee y valida entrada del usuario y verifica adyacencia
@@ -282,8 +284,6 @@ void colocar_barcos_usuario(int casillas, int board[casillas][casillas], int est
 // --------------------------------------------------
 void imprimir_tableros(int casillas, int jugador[casillas][casillas], int impactos[casillas][casillas]) 
 {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    
     printf("\n   TU TABLERO %*s TABLERO DEL ORDENADOR (TUS DISPAROS)\n\n",
            casillas * 3, "");
 
@@ -302,18 +302,17 @@ void imprimir_tableros(int casillas, int jugador[casillas][casillas], int impact
             char ch = jugador[f][c] + '0';
             
             if (jugador[f][c] == 0) {
-                SetConsoleTextAttribute(hConsole, 11); // Azul clarito (no tocado)
+                // Azul clarito (no tocado)
                 
             } else if (jugador[f][c] == 2) {
-                SetConsoleTextAttribute(hConsole, 1);  // Azul oscuro (agua)
+                // Azul oscuro (agua)
                 ch = 'A';
             } else if (jugador[f][c] == 3) {
-                SetConsoleTextAttribute(hConsole, 14); // Amarillo (tocado)
+                // Amarillo (tocado)
                 ch = 'X';
             }
 
             printf("%c  ", ch);
-            SetConsoleTextAttribute(hConsole, 7); // Reset a blanco
         }
 
         printf("   ");  // Separación
@@ -325,21 +324,20 @@ void imprimir_tableros(int casillas, int jugador[casillas][casillas], int impact
             int valor = impactos[f][c];
 
             if (valor == 0 || valor==1) {
-                SetConsoleTextAttribute(hConsole, 11); // Azul clarito (mar vacío)
+                // Azul clarito (mar vacío)
                 //ch = '';
             } else if (valor == 2) {
-                SetConsoleTextAttribute(hConsole, 1);  // Azul oscuro (agua)
+                // Azul oscuro (agua)
                 ch = 'A';
             } else if (valor == 3) {
-                SetConsoleTextAttribute(hConsole, 14); // Amarillo (tocado)
+                // Amarillo (tocado)
                 ch = 'X';
             } else if (valor == 4) {
-                SetConsoleTextAttribute(hConsole, 12); // Rojo (hundido)
+                // Rojo (hundido)
                 ch = 'H';
             }
 
             printf("%c  ", ch);
-            SetConsoleTextAttribute(hConsole, 7); // Reset a blanco
         }
         printf("\n");
     }

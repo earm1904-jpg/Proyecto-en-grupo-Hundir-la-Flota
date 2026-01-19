@@ -30,7 +30,7 @@ int ImpactoNav(Nave *Nav, tablero *tab, tablero *tabDisp){
                          printf("Has impactado una nave\n");
                          return 1;
                         if(Nav->ImpacNav==0){ //HUNDIDO
-                            hundido=hundido+1;
+                            hundidos=hundidos+1;
                             printf("Has hundido una nave\n");
                             return 1;
                         }

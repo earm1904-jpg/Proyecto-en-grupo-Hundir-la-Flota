@@ -7,10 +7,9 @@
 #define AGUA 'A'
 #define IMPACTO 'X'
 #define FALLA '0'
-int TotNavs=6;// Variable Global para saber la cantidad de naves del juego
-int disparos=0;
-int hundidos=0;
-// hola
+extern int TotNavs;// Variable Global para saber la cantidad de naves del juego
+extern int disparos;
+extern int hundidos;
 // crear tablero
 typedef struct
 {
@@ -31,6 +30,9 @@ typedef struct
 
    
 } Naves;
+
+// Alias para compatibilidad
+typedef Naves Nave;
 
 
 // funciones
