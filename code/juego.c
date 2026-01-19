@@ -29,11 +29,6 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
     //TotNavs=6 Variable global total de naves
     while(TotNavs!=0){ //Una vez ubique todas las naves se saldrá del bucle
     
-    printf("¿Cómo quieres ubicar el barco, desde Proa  o Popa?\n");
-    printf("1) Proa\n");
-    printf("0) Popa\n");
-    scanf(" %d", &Nav->ParteBarco);
-    
     printf("¿Cuál barco quieres ubicar?\n");
     printf("P Portaviones\n");
     printf("C Cruceros\n");
@@ -49,6 +44,11 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
         Nav->CantidadNAvs=1;
 
             while(Nav->CantidadNAvs!=0){
+
+                printf("¿Cómo quieres ubicar el barco, desde Proa  o Popa?\n");
+                printf("1) Proa\n");
+                printf("0) Popa\n");
+                scanf(" %d", &Nav->ParteBarco);
 
                 printf("Digita las coordenas para ubicar tu barco, recueda que son números enteros cero y once\n");
                 printf("Digita la coordenada de las filas\n");
@@ -106,6 +106,11 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
             Nav->CantidadNAvs=2;
 
             while(Nav->CantidadNAvs!=0){
+
+                printf("¿Cómo quieres ubicar el barco, desde Proa  o Popa?\n");
+                printf("1) Proa\n");
+                printf("0) Popa\n");
+                scanf(" %d", &Nav->ParteBarco);
 
                 printf("Digita las coordenas para ubicar tu barco, recueda que son números enteros cero y once\n");
                 printf("Digita la coordenada de las filas\n");
@@ -166,6 +171,11 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 
             while(Nav->CantidadNAvs!=0){
 
+                printf("¿Cómo quieres ubicar el barco, desde Proa  o Popa?\n");
+                printf("1) Proa\n");
+                printf("0) Popa\n");
+                scanf(" %d", &Nav->ParteBarco);
+
                 printf("Digita las coordenas para ubicar tu barco, recueda que son números enteros cero y once\n");
                 printf("Digita la coordenada de las filas\n");
                 scanf(" %d", &Nav->InicialFilas);
@@ -218,66 +228,59 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
             printf("¿Escoge una opción valida?\n");
             continue;
         }
-        
     }
-    printf("\n Has ubicado todas tus NAVES");
-
+    printf("\n¡Has ubicado todas tus NAVES!\n\n");
 
 }
 
 
-void UbicarNavesPC(tablero *tab,Naves *Nav){
+void UbicarNavesPC(tablero *tab,Naves *Nav)
+{
 
-      int nDirec; // Variable para el randon de la dirección de las naves 0->Horizontal, 1->Vertical
+    int nDirec; // Variable para el randon de la dirección de las naves 0->Horizontal, 1->Vertical
 
- while(TotNavs!=0){
-    Nav->ParteBarco= rand()% 2;
-    nDirec=Nav->ParteBarco; 
-    
-    //Portaviones PC
-    if (Nav->nombarco=='P'){ 
-        Nav->tamNave=4;
-        Nav->CantidadNAvs=1;
+    while(TotNavs!=0){
+        Nav->ParteBarco= rand()% 2;
+        nDirec=Nav->ParteBarco; 
+        
+        //Portaviones PC
+        if (Nav->nombarco=='P'){ 
+            Nav->tamNave=4;
+            Nav->CantidadNAvs=1;
 
             while(Nav->CantidadNAvs!=0){
-
-              // Valores randon para la posición incial de cada nave de 0-11
-                Nav->InicialFilas=rand()% 12;
-                Nav->InicialColum=rand()% 12;
-
-            if (Nav->ParteBarco==1|| Nav->ParteBarco==0 )//PROA 1 / 0 POPA
-            {
-                 if(nDirec==1){
-                    Nav->orientacion='V';
-
-                 }
-                 else{
-                    Nav->orientacion='H';
-                 }
-
-                 if(Nav->orientacion=='H'||Nav->orientacion=='V'){
-                    if(FueradelMapa(Nav)==0){
-
-                        if(BarcoAdyacente(tab,Nav)==0){
-                            UbicarBarco(tab, Nav);
-                             Nav->CantidadNAvs=Nav->CantidadNAvs-1;
-                             TotNavs=TotNavs-1;
-                        }
-                        
-                    }
                     
+                // Valores randon para la posición incial de cada nave de 0-11
+                    Nav->InicialFilas=rand()% 12;
+                    Nav->InicialColum=rand()% 12;
 
-                 }
-                 
+                if (Nav->ParteBarco==1|| Nav->ParteBarco==0 ){//PROA 1 / 0 POPA
+
+                    if(nDirec==1){
+                        Nav->orientacion='V';
+
+                    }
+                    else{
+                        Nav->orientacion='H';
+                    }
+
+                    if(Nav->orientacion=='H'||Nav->orientacion=='V'){
+                        if(FueradelMapa(Nav)==0){
+
+                            if(BarcoAdyacente(tab,Nav)==0){
+                                UbicarBarco(tab, Nav);
+                                Nav->CantidadNAvs=Nav->CantidadNAvs-1;
+                                TotNavs=TotNavs-1;
+                            }
+
+                        }
+                    }
+                }
             }
-            
         }
         
-        }
-
-
         //Cruceros PC
-        if (Nav->nombarco=='C'){ 
+        else if (Nav->nombarco=='C'){ 
         Nav->tamNave=3;
         Nav->CantidadNAvs=2;
 
@@ -318,7 +321,7 @@ void UbicarNavesPC(tablero *tab,Naves *Nav){
         }
 
         //Patrulleros PC
-        if (Nav->nombarco=='T'){ 
+        else if (Nav->nombarco=='T'){ 
         Nav->tamNave=2;
         Nav->CantidadNAvs=3;
 
@@ -357,9 +360,9 @@ void UbicarNavesPC(tablero *tab,Naves *Nav){
         }
         
         }
-
- }
+    }
 }
+
 
 
 
