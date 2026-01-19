@@ -31,7 +31,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
     printf("¿Cómo quieres ubicar el barco, desde Proa  o Popa?\n");
     printf("1) Proa\n");
     printf("0) Popa\n");
-    scanf(" %c", &Nav->ParteBarco);
+    scanf(" %d", &Nav->ParteBarco);
     
     printf("¿Cuál barco quieres ubicar?\n");
     printf("P Portaviones\n");
@@ -48,11 +48,11 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 
             while(Nav->CantidadNAvs!=0){
 
-                printf("Digita las coordenas para ubicar tu barco, recueda que son números enter cero y once\n");
+                printf("Digita las coordenas para ubicar tu barco, recueda que son números enteros cero y once\n");
                 printf("Digita la coordenada de las filas\n");
-                scanf(" %c", &Nav->InicialFilas);
+                scanf(" %d", &Nav->InicialFilas);
                 printf("Digita la coordenada de las columnas\n");
-                scanf(" %c", &Nav->InicialColum);
+                scanf(" %d", &Nav->InicialColum);
 
             if (Nav->ParteBarco==1|| Nav->ParteBarco==0 )//PROA 1 / 0 POPA
             {
@@ -95,7 +95,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 
             while(Nav->CantidadNAvs!=0){
 
-                printf("Digita las coordenas para ubicar tu barco, recueda que son números enter cero y once\n");
+                printf("Digita las coordenas para ubicar tu barco, recueda que son números enteros cero y once\n");
                 printf("Digita la coordenada de las filas\n");
                 scanf(" %c", &Nav->InicialFilas);
                 printf("Digita la coordenada de las columnas\n");
@@ -144,7 +144,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 
             while(Nav->CantidadNAvs!=0){
 
-                printf("Digita las coordenas para ubicar tu barco, recueda que son números enter cero y once\n");
+                printf("Digita las coordenas para ubicar tu barco, recueda que son números enteros cero y once\n");
                 printf("Digita la coordenada de las filas\n");
                 scanf(" %c", &Nav->InicialFilas);
                 printf("Digita la coordenada de las columnas\n");
