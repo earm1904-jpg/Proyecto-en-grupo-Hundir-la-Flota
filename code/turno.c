@@ -11,9 +11,9 @@ int ImpactoNav(Nave *Nav, tablero *tab, tablero *tabDisp){
 
     printf("Digita las coordenas de disparo, recueda que son números enteros cero y once\n");
     printf("Digita la coordenada de las fila\n");
-    scanf(" %d",CoorImpFilas);
+    scanf(" %d",&CoorImpFilas);
     printf("Digita la coordenada de las columna\n");
-    scanf(" %d", CoorImpColumn);
+    scanf(" %d", &CoorImpColumn);
 
      if(CoorImpColumn>=0&&CoorImpColumn<TAM_TABLERO && CoorImpFilas>=0&&CoorImpFilas< TAM_TABLERO){
 
@@ -57,12 +57,12 @@ int ImpactoNav(Nave *Nav, tablero *tab, tablero *tabDisp){
 
 
 void turnosPlayers(Nave *Nav, tablero *tabPlayer, tablero *tabPC){
- turno=ImpactoNav(&Nav,&tabPlayer,&tabPlayer);
+ turno=ImpactoNav(Nav,tabPlayer,tabPlayer);
 
     if(turno==1){
         
         disparos=disparos+1;
-        ImpactoNav(&Nav,&tabPlayer,&tabPlayer);
+        ImpactoNav(Nav,tabPlayer,tabPlayer);
 
         }
         else{
