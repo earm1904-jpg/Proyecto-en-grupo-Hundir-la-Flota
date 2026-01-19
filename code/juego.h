@@ -10,6 +10,7 @@
 int TotNavs=6;// Variable Global para saber la cantidad de naves del juego
 int disparos=0;
 int hundidos=0;
+// hola
 // crear tablero
 typedef struct
 {

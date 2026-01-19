@@ -7,6 +7,7 @@
 #include "ShowTablero.h"
 #include "juego.h"
 #include "turno.h"
+#include "puntuaciones.h"
 
 int main()
 {
@@ -92,6 +93,8 @@ default:
 }
 while (tolower(ResMen) != 's')
   ;
+
+
 
 return 0;
 }
