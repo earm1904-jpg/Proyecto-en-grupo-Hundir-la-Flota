@@ -8,7 +8,8 @@
 #define IMPACTO 'X'
 #define FALLA '0'
 int TotNavs=6;// Variable Global para saber la cantidad de naves del juego
-
+int disparos=0;
+int hundidos=0;
 // crear tablero
 typedef struct
 {
