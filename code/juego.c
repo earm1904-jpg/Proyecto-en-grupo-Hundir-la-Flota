@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <ctype.h>
 
 #include "juego.h"
 #include "Validar_ubicacion_barco.h"
@@ -38,6 +39,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
     printf("C Cruceros\n");
     printf("T Patrullero\n");
     scanf(" %c", &Nav->nombarco);
+    Nav->nombarco = toupper(Nav->nombarco);
 
     
 
@@ -60,6 +62,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                  printf("H Horizontal\n");
                  printf("V Vertical\n");
                  scanf(" %c", &Nav->orientacion);
+                 Nav->orientacion = toupper(Nav->orientacion);
                  if(Nav->orientacion=='H'||Nav->orientacion=='V'){
                     if(FueradelMapa(Nav)==0){
 
@@ -86,6 +89,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                     printf("H Horizontal\n");
                     printf("V Vertical\n");
                     scanf(" %c", &Nav->orientacion);
+                 Nav->orientacion = toupper(Nav->orientacion);
                     continue;
                  }
 
@@ -115,6 +119,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                  printf("H Horizontal\n");
                  printf("V Vertical\n");
                  scanf(" %c", &Nav->orientacion);
+                 Nav->orientacion = toupper(Nav->orientacion);
                  if(Nav->orientacion=='H'||Nav->orientacion=='V'){
                     if(FueradelMapa(Nav)==0){
 
@@ -141,6 +146,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                     printf("H Horizontal\n");
                     printf("V Vertical\n");
                     scanf(" %c", &Nav->orientacion);
+                 Nav->orientacion = toupper(Nav->orientacion);
                     continue;
                  }
 
@@ -172,6 +178,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                  printf("H Horizontal\n");
                  printf("V Vertical\n");
                  scanf(" %c", &Nav->orientacion);
+                 Nav->orientacion = toupper(Nav->orientacion);
                  if(Nav->orientacion=='H'||Nav->orientacion=='V'){
                     if(FueradelMapa(Nav)==0){
 
@@ -198,6 +205,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                     printf("H Horizontal\n");
                     printf("V Vertical\n");
                     scanf(" %c", &Nav->orientacion);
+                 Nav->orientacion = toupper(Nav->orientacion);
                     continue;
                  }
 
