@@ -15,7 +15,6 @@
                 "puntuaciones.c",
                 "verificacionF.c",
                 "Validar_ubicacion_barco.c",
-                "barcos.c",
                 "-o",
                 "hundir_la_flota"
             ],
