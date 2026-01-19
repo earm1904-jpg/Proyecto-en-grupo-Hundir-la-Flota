@@ -59,44 +59,44 @@ if (Nav->orientacion=='H'){
 //---------------------------------------------------------------------------------------------------------//
 //Esta funcióbn puede servir tanto para verificar los adyacentes del tablero del playero como de la máquina//
 //---------------------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------------------//
+//Esta función verifica si hay un barco superpuesto en el tablero del jugador//
+//---------------------------------------------------------------------------------------------------------//
 int BarcoAdyacente(tablero *tabJu_Or, Naves *NavPL_OR)
-    {
-  
-    for (int i = 0; i < TAM_TABLERO; i++)
-    {
-        for (int j = 0; i < TAM_TABLERO; j++)
-        {
-            if (tabJu_Or->espacio[i][j]!= AGUA) // Revisa si hay barcos en todas las posiciones del mapa en el tablero del Player (*tabJu_Or) 
-            {
-                if(NavPL_OR->InicialFilas==i && NavPL_OR->InicialColum==j){ //verifica las coordenada del barco en la posición que encotró el anterior IF
-
-                    printf("La posición (%d,%d) que seleccionaste ya se ecnuentra ocupada por una nave\n", NavPL_OR->InicialFilas,NavPL_OR->InicialColum);
-                    return 1;
-
-                 } 
-            }
-            else{
-                // Comprueba si hay un barco adyacente (8 vecinos)
-                // fila/columna aquí están en índices 0-based
-
-                for (int di = -1; di <= 1; di++) {
-                     for (int dj = -1; dj <= 1; dj++) {
-                         if (di == 0 && dj == 0) continue;
-                         int nf = NavPL_OR->InicialFilas + di;
-                        int nc = NavPL_OR->InicialColum + dj;
-                        if (nf >= 0 && nf < TAM_TABLERO && nc >= 0 && nc < TAM_TABLERO) {
-                            if (tabJu_Or->espacio[nf][nc]== AGUA) return 1;
-                        }
-                            }
-                        }
-            
-                    }
+{
+    // Obtenemos las coordenadas que ocupará el barco
+    int filaInicio = NavPL_OR->InicialFilas;
+    int colInicio = NavPL_OR->InicialColum;
+    int tamano = NavPL_OR->tamNave;
+    char orientacion = NavPL_OR->orientacion;
+    
+    // Recorremos todas las posiciones que ocupará el barco
+    for (int k = 0; k < tamano; k++) {
+        int fila, col;
         
-            }
-
+        if (orientacion == 'H') {
+            // Barco horizontal: avanza en columnas
+            fila = filaInicio;
+            col = colInicio + k;
+        } else {
+            // Barco vertical: avanza en filas
+            fila = filaInicio + k;
+            col = colInicio;
+        }
+        
+        // Verificar si la posición actual está fuera del mapa
+        if (fila < 0 || fila >= TAM_TABLERO || col < 0 || col >= TAM_TABLERO) {
+            return 1; // Fuera del mapa
+        }
+        
+        // Verificar si hay un barco en esa posición (superposición)
+        if (tabJu_Or->espacio[fila][col] != AGUA) {
+            printf("La posicion (%d,%d) esta ocupada por una nave\n", fila, col);
+            return 1;
+        }
     }
     
-    return 0;
+    return 0; // Posición válida
 }
 
 //------------------------------------------------------------------------------//
@@ -120,4 +120,17 @@ void UbicarBarco(tablero *tabJu_Or, Naves *NavPL_OR)
             tabJu_Or->espacio[NavPL_OR->InicialFilas][NavPL_OR->InicialColum + i] = NavPL_OR->nombarco;
         }
     }
+    
+    // Mensaje de confirmación
+    char *nombreBarco = "";
+    if (NavPL_OR->nombarco == 'P') {
+        nombreBarco = "Portaviones";
+    } else if (NavPL_OR->nombarco == 'C') {
+        nombreBarco = "Crucero";
+    } else if (NavPL_OR->nombarco == 'T') {
+        nombreBarco = "Patrullero";
+    }
+    
+    printf("\n¡%s colocado exitosamente en coordenadas (%d,%d) - Orientación %c!\n\n", 
+           nombreBarco, NavPL_OR->InicialFilas, NavPL_OR->InicialColum, NavPL_OR->orientacion);
 }
