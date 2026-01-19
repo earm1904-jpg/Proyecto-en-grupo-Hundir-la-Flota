@@ -8,6 +8,11 @@
 #include "turno.h"
 //Commit 3
 
+// Variables globales para contar barcos colocados
+int portavionesColocados = 0;
+int crucerosColocados = 0;
+int patullerosColocados = 0;
+
 // Rellenando el tablero con la letra 'A' Agua
 void IniciarTableros(tablero *tab)
 {
@@ -30,9 +35,9 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
     while(TotNavs!=0){ //Una vez ubique todas las naves se saldrá del bucle
     
     printf("¿Cuál barco quieres ubicar?\n");
-    printf("P Portaviones\n");
-    printf("C Cruceros\n");
-    printf("T Patrullero\n");
+    printf("P Portaviones (quedan: %d)\n", 1 - portavionesColocados);
+    printf("C Cruceros (quedan: %d)\n", 2 - crucerosColocados);
+    printf("T Patrullero (quedan: %d)\n", 3 - patullerosColocados);
     scanf(" %c", &Nav->nombarco);
     Nav->nombarco = toupper(Nav->nombarco);
 
@@ -40,6 +45,10 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 
     //----Portaviones-----///
     if (Nav->nombarco=='P'){ 
+        if (portavionesColocados >= 1) {
+            printf("Ya has colocado el máximo de Portaviones (1).\n");
+            continue;
+        }
         Nav->tamNave=4;
         Nav->CantidadNAvs=1;
 
@@ -68,6 +77,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 
                         if(BarcoAdyacente(tab,Nav)==0){
                             UbicarBarco(tab, Nav);
+                            portavionesColocados++;
                              Nav->CantidadNAvs=Nav->CantidadNAvs-1;
                              TotNavs=TotNavs-1;
                         }
@@ -102,6 +112,10 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
         }
         //----Cruceros-----///
     else if(Nav->nombarco=='C'){
+        if (crucerosColocados >= 2) {
+            printf("Ya has colocado el máximo de Cruceros (2).\n");
+            continue;
+        }
             Nav->tamNave=3;
             Nav->CantidadNAvs=2;
 
@@ -130,6 +144,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 
                         if(BarcoAdyacente(tab,Nav)==0){
                             UbicarBarco(tab, Nav);
+                            crucerosColocados++;
                             Nav->CantidadNAvs=Nav->CantidadNAvs-1;
                              TotNavs=TotNavs-1;
                         }
@@ -165,6 +180,10 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 
         //----Pratrulleros-----///
     else if(Nav->nombarco=='T'){
+        if (patullerosColocados >= 3) {
+            printf("Ya has colocado el máximo de Patrulleros (3).\n");
+            continue;
+        }
 
             Nav->tamNave=2;
             Nav->CantidadNAvs=3;
@@ -194,6 +213,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
 
                         if(BarcoAdyacente(tab,Nav)==0){
                             UbicarBarco(tab, Nav);
+                            patullerosColocados++;
                             Nav->CantidadNAvs=Nav->CantidadNAvs-1;
                              TotNavs=TotNavs-1;
                         }
