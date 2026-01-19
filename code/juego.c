@@ -58,6 +58,11 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                 printf("1) Proa\n");
                 printf("0) Popa\n");
                 scanf(" %d", &Nav->ParteBarco);
+                
+                if (Nav->ParteBarco != 1 && Nav->ParteBarco != 0) {
+                    printf("Número inválido. Por favor, ingresa 1 (Proa) o 0 (Popa)\n");
+                    continue;
+                }
 
                 printf("Digita las coordenas para ubicar tu barco, recueda que son números enteros cero y once\n");
                 printf("Digita la coordenada de las filas\n");
@@ -125,6 +130,11 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                 printf("1) Proa\n");
                 printf("0) Popa\n");
                 scanf(" %d", &Nav->ParteBarco);
+                
+                if (Nav->ParteBarco != 1 && Nav->ParteBarco != 0) {
+                    printf("Número inválido. Por favor, ingresa 1 (Proa) o 0 (Popa)\n");
+                    continue;
+                }
 
                 printf("Digita las coordenas para ubicar tu barco, recueda que son números enteros cero y once\n");
                 printf("Digita la coordenada de las filas\n");
@@ -194,6 +204,11 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                 printf("1) Proa\n");
                 printf("0) Popa\n");
                 scanf(" %d", &Nav->ParteBarco);
+                
+                if (Nav->ParteBarco != 1 && Nav->ParteBarco != 0) {
+                    printf("Número inválido. Por favor, ingresa 1 (Proa) o 0 (Popa)\n");
+                    continue;
+                }
 
                 printf("Digita las coordenas para ubicar tu barco, recueda que son números enteros cero y once\n");
                 printf("Digita la coordenada de las filas\n");
