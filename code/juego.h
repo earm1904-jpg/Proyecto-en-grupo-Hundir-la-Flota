@@ -10,6 +10,7 @@
 extern int TotNavs;// Variable Global para saber la cantidad de naves del juego
 extern int disparos;
 extern int hundidos;
+//Commit 4
 // crear tablero
 typedef struct
 {
