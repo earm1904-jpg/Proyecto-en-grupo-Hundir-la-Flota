@@ -68,7 +68,14 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                              Nav->CantidadNAvs=Nav->CantidadNAvs-1;
                              TotNavs=TotNavs-1;
                         }
-                        
+                        else{
+                            printf("Hay un barco adyacente. Intenta de nuevo.\n");
+                            continue;
+                        }
+                    }
+                    else{
+                        printf("El barco está fuera del mapa. Intenta de nuevo.\n");
+                        continue;
                     }
                     
 
@@ -79,6 +86,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                     printf("H Horizontal\n");
                     printf("V Vertical\n");
                     scanf(" %c", &Nav->orientacion);
+                    continue;
                  }
 
             }
@@ -115,7 +123,14 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                             Nav->CantidadNAvs=Nav->CantidadNAvs-1;
                              TotNavs=TotNavs-1;
                         }
-                        
+                        else{
+                            printf("Hay un barco adyacente. Intenta de nuevo.\n");
+                            continue;
+                        }
+                    }
+                    else{
+                        printf("El barco está fuera del mapa. Intenta de nuevo.\n");
+                        continue;
                     }
                     
 
@@ -126,6 +141,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                     printf("H Horizontal\n");
                     printf("V Vertical\n");
                     scanf(" %c", &Nav->orientacion);
+                    continue;
                  }
 
             }
@@ -164,7 +180,14 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                             Nav->CantidadNAvs=Nav->CantidadNAvs-1;
                              TotNavs=TotNavs-1;
                         }
-                        
+                        else{
+                            printf("Hay un barco adyacente. Intenta de nuevo.\n");
+                            continue;
+                        }
+                    }
+                    else{
+                        printf("El barco está fuera del mapa. Intenta de nuevo.\n");
+                        continue;
                     }
                     
 
@@ -175,6 +198,7 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
                     printf("H Horizontal\n");
                     printf("V Vertical\n");
                     scanf(" %c", &Nav->orientacion);
+                    continue;
                  }
 
             }
@@ -184,7 +208,8 @@ void UbicarNavesPlayer(tablero *tab, Naves *Nav)
         }
         else{
             printf("¿Escoge una opción valida?\n");
-            }
+            continue;
+        }
         
     }
     printf("\n Has ubicado todas tus NAVES");
