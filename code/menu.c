@@ -67,12 +67,8 @@ int main()
     Naves Pratullero3PC={'T',2};
 
     //Ubicando cada nave del Player en el tablero TabPlayer
+    // Se llama una sola vez porque UbicarNavesPlayer maneja todos los tipos de barcos
     UbicarNavesPlayer(&TabPlayer,&Portaviones);
-    UbicarNavesPlayer(&TabPlayer,&Crucero1);
-    UbicarNavesPlayer(&TabPlayer,&Crucero2);
-    UbicarNavesPlayer(&TabPlayer,&Pratullero1);
-    UbicarNavesPlayer(&TabPlayer,&Pratullero2);
-    UbicarNavesPlayer(&TabPlayer,&Pratullero3);
 
     //Ubicando cada nave del PC en el tablero  TabContr
     UbicarNavesPC(&TabContr, &PortavionesPC);
@@ -82,7 +78,62 @@ int main()
     UbicarNavesPC(&TabContr, &Pratullero2PC);
     UbicarNavesPC(&TabContr, &Pratullero3PC);
     
+    printf("\n========================================\n");
+    printf("¡COMIENZA EL JUEGO!\n");
+    printf("========================================\n\n");
     
+    // ========== BUCLE PRINCIPAL DEL JUEGO ==========
+    int finJuego = 0; // 0 = juego activo, 1 = jugador ganó, 2 = PC ganó
+    
+    while(finJuego == 0){
+        // === TURNO DEL JUGADOR ===
+        printf("\n--- Tu turno ---\n");
+        printf("Tablero de disparos:\n");
+        ShowTablero(TabDisparosPlayer);
+        
+        // El jugador dispara
+        int impactoJugador = ImpactoNav(&Portaviones, &TabContr, &TabDisparosPlayer);
+        
+        // Si hay impacto, tiene otro disparo
+        while(impactoJugador == 1){
+            printf("\n¡Impactaste! Tienes otro disparo!\n");
+            impactoJugador = ImpactoNav(&Portaviones, &TabContr, &TabDisparosPlayer);
+        }
+        
+        // Verificar si el jugador ganó (0 barcos restantes = ganó)
+        if(ContarBarcosRestantes(&TabContr) == 0){
+            printf("\n========================================\n");
+            printf("¡GANASTE! Todos los barcos de la PC están hundidos.\n");
+            printf("========================================\n");
+            finJuego = 1;
+            break;
+        }
+        
+        // === TURNO DE LA PC ===
+        printf("\n--- Turno de la PC ---\n");
+        int impactoPC = AtaquePC(&TabPlayer, &TabDisparosPC);
+        
+        // La PC continúa disparando si tuvo impacto
+        while(impactoPC == 1){
+            impactoPC = AtaquePC(&TabPlayer, &TabDisparosPC);
+        }
+        
+        printf("\nTu tablero actual:\n");
+        ShowTablero(TabPlayer);
+        
+        // Verificar si la PC ganó (0 barcos restantes = PC ganó)
+        if(ContarBarcosRestantes(&TabPlayer) == 0){
+            printf("\n========================================\n");
+            printf("¡PERDISTE! La PC hundió todos tus barcos.\n");
+            printf("========================================\n");
+            finJuego = 2;
+            break;
+        }
+        
+        // Pausa entre turnos
+        printf("\nPresiona Enter para continuar...\n");
+        getchar();
+    }
     
     break;
 
